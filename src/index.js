@@ -62,10 +62,10 @@ function printImages(array) {
 
 function displayDetail(img, obj) {
     img.addEventListener('click', () => {
-        detailImg.src = img.src
-        nameH2.textContent = obj.name
-        restH3.textContent = obj.restaurant
-        rateP.textContent = obj.rating
-        commentP.textContent = obj.comment
+        detailImg.src           = obj.image
+        nameH2.textContent      = obj.name
+        restH3.textContent      = obj.restaurant
+        rateP.textContent       = obj.rating
+        commentP.textContent    = obj.comment
     })
 }
