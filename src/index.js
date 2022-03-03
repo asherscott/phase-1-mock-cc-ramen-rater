@@ -13,21 +13,22 @@ const commentSub    = document.querySelector('textarea');
 
 fetch('http://localhost:3000/ramens')
 .then(res => res.json())
-.then(json => printImages(json))
+.then(ramens => printImages(ramens))
 
 
 
-function printImages(array) {
+function printImages(ramens) {
+    displayDetail(ramens[0])
 
 
     // DELIVERABLE 1
-    array.forEach((obj) => {
+    ramens.forEach((ramen) => {
         const img = document.createElement('img');
-        img.src = obj.image;
+        img.src = ramen.image;
         ramenMenuDiv.append(img);
 
         // DELIVERABLE 2
-        displayDetail(img, obj)
+        img.addEventListener('click', () => displayDetail(ramen))
     })
 
 
@@ -38,7 +39,7 @@ function printImages(array) {
 
         const newInputs = Array.from(inputs).slice(0, -1);
 
-        let newRamen = {
+        const newRamen = {
             name:        newInputs[0].value,
             restaurant:  newInputs[1].value,
             image:       newInputs[2].value,
@@ -46,26 +47,24 @@ function printImages(array) {
             comment:     commentSub.value,
         }
 
-        newInputs.forEach(ele => ele.value = '')
+        newInputs.forEach(input => input.value = '')
         commentSub.value = '';
 
-        const newImg = document.createElement('img');
-        newImg.src = newRamen.image;
-        newImg.alt = 'ramen image'
-        ramenMenuDiv.append(newImg);
+        const img = document.createElement('img');
+        img.src = newRamen.image;
+        img.alt = 'ramen image'
+        ramenMenuDiv.append(img);
 
-        displayDetail(newImg, newRamen)
+        img.addEventListener('click', () => displayDetail(newRamen))
     })
 }
 
 
 
-function displayDetail(img, obj) {
-    img.addEventListener('click', () => {
-        detailImg.src           = obj.image
-        nameH2.textContent      = obj.name
-        restH3.textContent      = obj.restaurant
-        rateP.textContent       = obj.rating
-        commentP.textContent    = obj.comment
-    })
+function displayDetail(ramen) {
+    detailImg.src           = ramen.image
+    nameH2.textContent      = ramen.name
+    restH3.textContent      = ramen.restaurant
+    rateP.textContent       = ramen.rating
+    commentP.textContent    = ramen.comment
 }
