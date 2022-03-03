@@ -27,13 +27,7 @@ function printImages(array) {
         ramenMenuDiv.append(img);
 
         // DELIVERABLE 2
-        img.addEventListener('click', () => {
-            detailImg.src = img.src
-            nameH2.textContent = obj.name
-            restH3.textContent = obj.restaurant
-            rateP.textContent = obj.rating
-            commentP.textContent = obj.comment
-        })
+        displayDetail(img, obj)
     })
 
 
@@ -41,21 +35,37 @@ function printImages(array) {
     form.addEventListener('submit', (event) => {
         event.preventDefault()
 
+
+        const newInputs = Array.from(inputs).slice(0, -1);
+
         let newRamen = {
-            name:        inputs[0].value,
-            restaurant:  inputs[1].value,
-            image:       inputs[2].value,
-            rating:      inputs[3].value,
+            name:        newInputs[0].value,
+            restaurant:  newInputs[1].value,
+            image:       newInputs[2].value,
+            rating:      newInputs[3].value,
             comment:     commentSub.value,
         }
 
-
-        const newInputs = Array.from(inputs).slice(0, 3);
         newInputs.forEach(ele => ele.value = '')
+        commentSub.value = '';
 
         const newImg = document.createElement('img');
         newImg.src = newRamen.image;
-        newImg.alt = 'new image'
+        newImg.alt = 'ramen image'
         ramenMenuDiv.append(newImg);
+
+        displayDetail(newImg, newRamen)
+    })
+}
+
+
+
+function displayDetail(img, obj) {
+    img.addEventListener('click', () => {
+        detailImg.src = img.src
+        nameH2.textContent = obj.name
+        restH3.textContent = obj.restaurant
+        rateP.textContent = obj.rating
+        commentP.textContent = obj.comment
     })
 }
