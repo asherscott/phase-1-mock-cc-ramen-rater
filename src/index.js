@@ -20,12 +20,10 @@ fetch('http://localhost:3000/ramens')
 function printImages(ramens) {
     displayDetail(ramens[0])
 
-
     // DELIVERABLE 1
     ramens.forEach((ramen) => {
         const img = document.createElement('img');
-        img.src = ramen.image;
-        ramenMenuDiv.append(img);
+        appendImg(img, ramen)
 
         // DELIVERABLE 2
         img.addEventListener('click', () => displayDetail(ramen))
@@ -51,15 +49,11 @@ function printImages(ramens) {
         commentSub.value = '';
 
         const img = document.createElement('img');
-        img.src = newRamen.image;
-        img.alt = 'ramen image'
-        ramenMenuDiv.append(img);
+        appendImg(img, newRamen)
 
         img.addEventListener('click', () => displayDetail(newRamen))
     })
 }
-
-
 
 function displayDetail(ramen) {
     detailImg.src           = ramen.image
@@ -67,4 +61,10 @@ function displayDetail(ramen) {
     restH3.textContent      = ramen.restaurant
     rateP.textContent       = ramen.rating
     commentP.textContent    = ramen.comment
+}
+
+function appendImg(img, ramen) {
+    img.src = ramen.image;
+    img.alt = 'ramen image'
+    ramenMenuDiv.append(img);
 }
